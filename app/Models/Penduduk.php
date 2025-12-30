@@ -28,4 +28,10 @@ class Penduduk extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    public function antrian()
+    {
+        return $this->hasMany(\App\Models\Antrian::class);
+    }
+
 }

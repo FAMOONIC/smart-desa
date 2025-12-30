@@ -38,6 +38,11 @@
             background-color: rgba(255,255,255,.08);
             color: #ffffff;
         }
+        .menu a.active {
+            background-color: rgba(255,255,255,.15);
+            color: #ffffff;
+            font-weight: 500;
+        }
         .logout {
             margin-top: auto;
             border-top: 1px solid rgba(255,255,255,.1);
@@ -68,6 +73,8 @@
 
 @if(auth()->check())
 <div class="d-flex">
+
+    <!-- SIDEBAR -->
     <div class="sidebar">
         <div class="brand">
             Smart Desa
@@ -75,19 +82,61 @@
         </div>
 
         <div class="menu mt-3">
-            <a href="/dashboard"><i class="bi bi-speedometer2"></i> Dashboard</a>
+            <!-- DASHBOARD (SATU PINTU) -->
+            <a href="/dashboard"
+               class="{{ request()->is('dashboard') ? 'active' : '' }}">
+                <i class="bi bi-speedometer2"></i> Dashboard
+            </a>
 
             @if(auth()->user()->role === 'admin')
-                <a href="/admin/penduduk"><i class="bi bi-people"></i> Data Penduduk</a>
-                <a href="#"><i class="bi bi-list-check"></i> Antrian Online</a>
-                <a href="#"><i class="bi bi-archive"></i> Arsip Desa</a>
-                <a href="#"><i class="bi bi-journal-text"></i> Peraturan Desa</a>
-                <a href="#"><i class="bi bi-calendar-week"></i> Jadwal Siskamling</a>
-                <a href="#"><i class="bi bi-activity"></i> Kegiatan Sosial</a>
+
+                <a href="/admin/penduduk"
+                   class="{{ request()->is('admin/penduduk*') ? 'active' : '' }}">
+                    <i class="bi bi-people"></i> Data Penduduk
+                </a>
+
+                <a href="/admin/antrian"
+                   class="{{ request()->is('admin/antrian*') ? 'active' : '' }}">
+                    <i class="bi bi-list-check"></i> Antrian Online
+                </a>
+
+                <a href="#"
+                   class="{{ request()->is('admin/arsip*') ? 'active' : '' }}">
+                    <i class="bi bi-archive"></i> Arsip Desa
+                </a>
+
+                <a href="#"
+                   class="{{ request()->is('admin/peraturan*') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i> Peraturan Desa
+                </a>
+
+                <a href="#"
+                   class="{{ request()->is('admin/siskamling*') ? 'active' : '' }}">
+                    <i class="bi bi-calendar-week"></i> Jadwal Siskamling
+                </a>
+
+                <a href="#"
+                   class="{{ request()->is('admin/kegiatan*') ? 'active' : '' }}">
+                    <i class="bi bi-activity"></i> Kegiatan Sosial
+                </a>
+
             @else
-                <a href="#"><i class="bi bi-person"></i> Profil Saya</a>
-                <a href="#"><i class="bi bi-list-check"></i> Antrian Online</a>
-                <a href="#"><i class="bi bi-info-circle"></i> Informasi Desa</a>
+
+                <a href="/warga/profil"
+                   class="{{ request()->is('warga/profil') ? 'active' : '' }}">
+                    <i class="bi bi-person"></i> Profil Saya
+                </a>
+
+                <a href="/warga/antrian"
+                   class="{{ request()->is('warga/antrian*') ? 'active' : '' }}">
+                    <i class="bi bi-list-check"></i> Antrian Online
+                </a>
+
+                <a href="#"
+                   class="{{ request()->is('warga/info*') ? 'active' : '' }}">
+                    <i class="bi bi-info-circle"></i> Informasi Desa
+                </a>
+
             @endif
         </div>
 
@@ -101,6 +150,7 @@
         </div>
     </div>
 
+    <!-- MAIN CONTENT -->
     <div class="flex-grow-1">
         <div class="topbar d-flex justify-content-between align-items-center">
             <div>Dashboard</div>
@@ -111,6 +161,7 @@
             @yield('content')
         </div>
     </div>
+
 </div>
 @endif
 
