@@ -5,8 +5,13 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\AdminPendudukController;
 use App\Http\Controllers\AdminAntrianController;
+use App\Http\Controllers\AdminArsipController;
+
 use App\Http\Controllers\WargaProfilController;
 use App\Http\Controllers\WargaAntrianController;
+use App\Http\Controllers\WargaArsipController;
+
+use App\Http\Controllers\ArsipFileController;
 
 
 Route::get('/', function () {
@@ -35,6 +40,9 @@ Route::middleware('auth')->group(function () {
         Route::post('/antrian/{id}/proses', [AdminAntrianController::class, 'proses']);
         Route::post('/antrian/{id}/selesai', [AdminAntrianController::class, 'selesai']);
         Route::get('/antrian/riwayat', [AdminAntrianController::class, 'riwayat']);
+        Route::get('/arsip', [AdminArsipController::class, 'index']);
+        Route::post('/arsip', [AdminArsipController::class, 'store']);
+        Route::delete('/arsip/{id}', [AdminArsipController::class, 'destroy']);
     });
 
     Route::middleware('role:warga')->prefix('warga')->group(function () {
@@ -43,6 +51,12 @@ Route::middleware('auth')->group(function () {
         Route::get('/antrian', [WargaAntrianController::class, 'index']);
         Route::post('/antrian', [WargaAntrianController::class, 'ambil']);
         Route::get('/antrian/riwayat', [WargaAntrianController::class, 'riwayat']);
+        Route::get('/arsip', [WargaArsipController::class, 'index']);
+    });
+    
+    Route::middleware('auth')->group(function () {
+        Route::get('/arsip/{id}/view', [ArsipFileController::class, 'view']);
+        Route::get('/arsip/{id}/download', [ArsipFileController::class, 'download']);
     });
 
 });

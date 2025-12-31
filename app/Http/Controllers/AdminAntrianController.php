@@ -3,12 +3,15 @@
 namespace App\Http\Controllers;
 
 use App\Models\Antrian;
+use App\Services\AntrianService;
 use Carbon\Carbon;
 
 class AdminAntrianController extends Controller
 {
     public function index()
     {
+        AntrianService::expireOldAntrian();
+
         $hariIni = Carbon::today();
 
         $diproses = Antrian::whereDate('tanggal', $hariIni)
@@ -24,30 +27,40 @@ class AdminAntrianController extends Controller
 
     public function proses($id)
     {
+        AntrianService::expireOldAntrian();
+
         $hariIni = Carbon::today();
 
         Antrian::whereDate('tanggal', $hariIni)
             ->where('status', 'diproses')
             ->update(['status' => 'menunggu']);
 
-        Antrian::where('id', $id)->update([
-            'status' => 'diproses'
-        ]);
+        Antrian::where('id', $id)
+            ->whereDate('tanggal', $hariIni)
+            ->where('status', 'menunggu')
+            ->update(['status' => 'diproses']);
 
         return redirect()->back();
     }
 
     public function selesai($id)
     {
-        Antrian::where('id', $id)->update([
-            'status' => 'selesai'
-        ]);
+        AntrianService::expireOldAntrian();
+
+        $hariIni = Carbon::today();
+
+        Antrian::where('id', $id)
+            ->whereDate('tanggal', $hariIni)
+            ->where('status', 'diproses')
+            ->update(['status' => 'selesai']);
 
         return redirect()->back();
     }
 
     public function riwayat()
     {
+        AntrianService::expireOldAntrian();
+
         $antrian = Antrian::orderBy('tanggal', 'desc')
             ->orderBy('nomor')
             ->get();

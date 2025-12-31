@@ -82,7 +82,6 @@
         </div>
 
         <div class="menu mt-3">
-            <!-- DASHBOARD (SATU PINTU) -->
             <a href="/dashboard"
                class="{{ request()->is('dashboard') ? 'active' : '' }}">
                 <i class="bi bi-speedometer2"></i> Dashboard
@@ -100,7 +99,7 @@
                     <i class="bi bi-list-check"></i> Antrian Online
                 </a>
 
-                <a href="#"
+                <a href="/admin/arsip"
                    class="{{ request()->is('admin/arsip*') ? 'active' : '' }}">
                     <i class="bi bi-archive"></i> Arsip Desa
                 </a>
@@ -132,6 +131,12 @@
                     <i class="bi bi-list-check"></i> Antrian Online
                 </a>
 
+                <a href="/warga/arsip"
+                   class="{{ request()->is('warga/arsip*') ? 'active' : '' }}">
+                    <i class="bi bi-archive"></i> Arsip Desa
+                </a>
+
+
                 <a href="#"
                    class="{{ request()->is('warga/info*') ? 'active' : '' }}">
                     <i class="bi bi-info-circle"></i> Informasi Desa
@@ -150,7 +155,6 @@
         </div>
     </div>
 
-    <!-- MAIN CONTENT -->
     <div class="flex-grow-1">
         <div class="topbar d-flex justify-content-between align-items-center">
             <div>Dashboard</div>
@@ -164,6 +168,9 @@
 
 </div>
 @endif
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
