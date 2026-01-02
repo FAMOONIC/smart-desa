@@ -114,7 +114,7 @@
                     <i class="bi bi-calendar-week"></i> Jadwal Siskamling
                 </a>
 
-                <a href="#"
+                <a href="/admin/kegiatan-sosial"
                    class="{{ request()->is('admin/kegiatan*') ? 'active' : '' }}">
                     <i class="bi bi-activity"></i> Kegiatan Sosial
                 </a>
@@ -146,9 +146,9 @@
                     <i class="bi bi-journal-text"></i> Jadwal Siskamling
                 </a>
 
-                <a href="#"
-                   class="{{ request()->is('warga/info*') ? 'active' : '' }}">
-                    <i class="bi bi-info-circle"></i> Informasi Desa
+                <a href="/warga/kegiatan-sosial"
+                   class="{{ request()->is('warga/kegiatan*') ? 'active' : '' }}">
+                    <i class="bi bi-activity"></i> Kegiatan Sosial
                 </a>
 
             @endif
@@ -180,6 +180,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+@stack('scripts')
 
 </body>
 </html>

@@ -8,16 +8,18 @@ use App\Http\Controllers\AdminAntrianController;
 use App\Http\Controllers\AdminArsipController;
 use App\Http\Controllers\AdminPeraturanController;
 use App\Http\Controllers\AdminSiskamlingController;
+use App\Http\Controllers\AdminKegiatanSosialController;
 
 use App\Http\Controllers\WargaProfilController;
 use App\Http\Controllers\WargaAntrianController;
 use App\Http\Controllers\WargaArsipController;
 use App\Http\Controllers\WargaPeraturanController;
 use App\Http\Controllers\WargaSiskamlingController;
-
+use App\Http\Controllers\WargaKegiatanSosialController;
 
 use App\Http\Controllers\ArsipFileController;
 use App\Http\Controllers\PeraturanPdfController;
+use App\Http\Controllers\ProfilDesaController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -41,7 +43,7 @@ Route::middleware('auth')->group(function () {
         Route::put('/penduduk/{id}', [AdminPendudukController::class, 'update']);
         Route::post('/penduduk/{id}/status', [AdminPendudukController::class, 'updateStatus']);
 
-        Route::get('/antrian', [AdminAntrianController::class, 'index']);
+        Route::get('/antria', [AdminAntrianController::class, 'index']);
         Route::post('/antrian/{id}/proses', [AdminAntrianController::class, 'proses']);
         Route::post('/antrian/{id}/selesai', [AdminAntrianController::class, 'selesai']);
         Route::get('/antrian/riwayat', [AdminAntrianController::class, 'riwayat']);
@@ -62,6 +64,13 @@ Route::middleware('auth')->group(function () {
         Route::get('/siskamling/riwayat', [AdminSiskamlingController::class, 'riwayat']);
         Route::get('/siskamling/{id}', [AdminSiskamlingController::class, 'show']);
 
+        Route::get('/kegiatan-sosial', [\App\Http\Controllers\AdminKegiatanSosialController::class, 'index']);
+        Route::post('/kegiatan-sosial', [\App\Http\Controllers\AdminKegiatanSosialController::class, 'store']);
+        Route::delete('/kegiatan-sosial/{id}', [\App\Http\Controllers\AdminKegiatanSosialController::class, 'destroy']);
+        Route::get('/kegiatan-sosial/{id}/download', [\App\Http\Controllers\AdminKegiatanSosialController::class, 'download']);
+        Route::get('/profil-desa', [ProfilDesaController::class, 'index']);
+        Route::put('/profil-desa', [ProfilDesaController::class, 'update']);
+
     });
 
     Route::middleware('role:warga')->prefix('warga')->group(function () {
@@ -77,6 +86,10 @@ Route::middleware('auth')->group(function () {
         Route::get('/siskamling', [WargaSiskamlingController::class, 'index']);
         // Route::get('/siskamling/riwayat', [WargaSiskamlingController::class, 'riwayat']);
         Route::get('/siskamling/{id}', [WargaSiskamlingController::class, 'show']);
+
+        Route::get('/kegiatan-sosial', [\App\Http\Controllers\WargaKegiatanSosialController::class, 'index']);
+        Route::get('/kegiatan-sosial/{id}/download', [\App\Http\Controllers\WargaKegiatanSosialController::class, 'download']);
+        Route::get('/warga/informasi-desa', [ProfilDesaController::class, 'warga']);
 
     });
 
