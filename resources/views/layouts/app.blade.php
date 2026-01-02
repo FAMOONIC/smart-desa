@@ -104,12 +104,12 @@
                     <i class="bi bi-archive"></i> Arsip Desa
                 </a>
 
-                <a href="#"
+                <a href="/admin/peraturan"
                    class="{{ request()->is('admin/peraturan*') ? 'active' : '' }}">
                     <i class="bi bi-journal-text"></i> Peraturan Desa
                 </a>
 
-                <a href="#"
+                <a href="/admin/siskamling"
                    class="{{ request()->is('admin/siskamling*') ? 'active' : '' }}">
                     <i class="bi bi-calendar-week"></i> Jadwal Siskamling
                 </a>
@@ -136,6 +136,15 @@
                     <i class="bi bi-archive"></i> Arsip Desa
                 </a>
 
+                <a href="/warga/peraturan"
+                   class="{{ request()->is('warga/peraturan*') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i> Peraturan Desa
+                </a>
+                
+                <a href="/warga/siskamling"
+                   class="{{ request()->is('warga/siskamling*') ? 'active' : '' }}">
+                    <i class="bi bi-journal-text"></i> Jadwal Siskamling
+                </a>
 
                 <a href="#"
                    class="{{ request()->is('warga/info*') ? 'active' : '' }}">
